@@ -62,4 +62,8 @@ PDOStatement Object (Query) com fetchAll
             )
     )
 
-    pode-se notar, que podemos acessar as propriedades de cada posição desse arry por índice ou pelo nome da coluna, que são indices associativos, neste caso.
+    pode-se notar, que podemos acessar as propriedades de cada posição desse arry por índice ou pelo nome da coluna, que são indices associativos, neste caso.    
+
+    echo $registers[0]["nome"]."<br/>";
+    echo $registers[1]["email"]."<br/>";
+    echo $registers[2][3]."<br/>";
