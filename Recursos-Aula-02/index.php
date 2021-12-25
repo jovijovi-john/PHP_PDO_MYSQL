@@ -8,18 +8,18 @@
         $conexao = new PDO($dsn, $user, $password);
         
         $query = "
-            select * from tb_usuarios
+            select * from tb_usuarios order by id desc limit 1;
         ";
 
         $stmt = $conexao->query($query);
-        $registers = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $registers = $stmt->fetch(PDO::FETCH_OBJ);
 
         echo "<pre>";
         print_r($registers);
         echo "</pre>";
 
         
-        echo $registers[0]->nome."<br/>";
+        echo $registers->nome."<br/>";
 
     } catch (PDOException $err) {
         
