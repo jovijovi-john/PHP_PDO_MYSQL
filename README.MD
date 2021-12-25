@@ -1,0 +1,1 @@
+repositório destinado ao estudo da integração de php com MySQL por meio do PDO.
