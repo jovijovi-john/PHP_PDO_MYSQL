@@ -12,15 +12,14 @@
         ";
 
         $stmt = $conexao->query($query);
-        $registers = $stmt->fetchAll();
+        $registers = $stmt->fetchAll(PDO::FETCH_OBJ);
 
-        // echo "<pre>";
-        // print_r($registers);
-        // echo "</pre>";
+        echo "<pre>";
+        print_r($registers);
+        echo "</pre>";
 
-        echo $registers[0]["nome"]."<br/>";
-        echo $registers[1]["email"]."<br/>";
-        echo $registers[2][3]."<br/>";
+        
+        echo $registers[0]->nome."<br/>";
 
     } catch (PDOException $err) {
         
