@@ -1,46 +1,63 @@
 <?php
 
-    $dsn = 'mysql:host=localhost;dbname=php_com_pdo';
-    $user = "root";
-    $password = ""; 
+    if(!empty($_POST["usuario"]) && !empty($_POST["senha"])) {
 
-    try {
-        $conexao = new PDO($dsn, $user, $password);
-        
-        $query = "
-            select * from tb_usuarios;
-        ";
+        $dsn = 'mysql:host=localhost;dbname=php_com_pdo';
+        $user = "root";
+        $password = ""; 
+    
+        try {
+            $conexao = new PDO($dsn, $user, $password);
 
-        foreach($conexao->query($query) as $key => $value){
-            echo "$key: ";
-            print_r($value["nome"]);
-            echo "<br/>";
-        };
+            // query
 
-        // $stmt = $conexao->query($query);
-        // $registers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $query = "select * from tb_usuarios where ";
+            $query .= "email = '{$_POST["usuario"]}' ";
+            $query .= "AND senha = '{$_POST["senha"]}'";
 
-        // foreach($registers as $register => $value) {
-        //     print_r($value);
-        //     echo "<br/>";
-        //     foreach($value as $collum => $valor) {
-        //         print_r($valor);
-        //         echo "<br/>";
-        //     }
+            echo $query;
+                    
+            $statement = $conexao->query($query);
+            $usuario = $statement->fetch();
+
+            echo "<pre>";
             
-        //     echo "<br/>";
-        //     echo "<br/>";
-        // };
-
+            print_r($usuario);
+            echo "</pre>";
         
-        // echo $registers[0]["nome"]."<br/>";
-
-    } catch (PDOException $err) {
-        
-        print_r("Erro: ".$err->getCode()."<br/>");
-        print_r("Mensagem: ".$err->getMessage());
-
-        // registrar erro
+        } catch (PDOException $err) {
+            
+            print_r("Erro: ".$err->getCode()."<br/>");
+            print_r("Mensagem: ".$err->getMessage());
+    
+            // registrar erro
+        }
     }
 
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <form method="POST" action="index.php">
+
+        <input type="text" placeholder="usuário" name="usuario">
+        <br/><br/>
+        
+        <input type="password" placeholder="senha" name="senha">
+        <br/><br/>
+        
+        <button type="submit">
+            Logar
+        </button>
+
+    </form>
+    
+</body>
+</html>
