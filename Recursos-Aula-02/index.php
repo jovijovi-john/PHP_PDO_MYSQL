@@ -8,18 +8,32 @@
         $conexao = new PDO($dsn, $user, $password);
         
         $query = "
-            select * from tb_usuarios order by id desc limit 1;
+            select * from tb_usuarios;
         ";
 
-        $stmt = $conexao->query($query);
-        $registers = $stmt->fetch(PDO::FETCH_OBJ);
+        foreach($conexao->query($query) as $key => $value){
+            echo "$key: ";
+            print_r($value["nome"]);
+            echo "<br/>";
+        };
 
-        echo "<pre>";
-        print_r($registers);
-        echo "</pre>";
+        // $stmt = $conexao->query($query);
+        // $registers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // foreach($registers as $register => $value) {
+        //     print_r($value);
+        //     echo "<br/>";
+        //     foreach($value as $collum => $valor) {
+        //         print_r($valor);
+        //         echo "<br/>";
+        //     }
+            
+        //     echo "<br/>";
+        //     echo "<br/>";
+        // };
 
         
-        echo $registers->nome."<br/>";
+        // echo $registers[0]["nome"]."<br/>";
 
     } catch (PDOException $err) {
         
