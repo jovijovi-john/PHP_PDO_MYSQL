@@ -12,16 +12,23 @@
             // query
 
             $query = "select * from tb_usuarios where ";
-            $query .= "email = '{$_POST["usuario"]}' ";
-            $query .= "AND senha = '{$_POST["senha"]}'";
+            $query .= " email = :usuario ";
+            $query .= " AND senha = :senha ";
 
-            echo $query;
-                    
-            $statement = $conexao->query($query);
-            $usuario = $statement->fetch();
+            $stmt = $conexao->prepare($query);
+
+            $stmt->bindValue(':usuario', $_POST["usuario"]); // vai tratar de não aceitar SQL Injection
+            $stmt->bindValue(':senha', $_POST["senha"]); // vai tratar de não// vai tratar de não aceitar SQL Injection
+
+            $stmt->execute();
 
             echo "<pre>";
-            
+            print_r($stmt);
+            echo "</pre>";
+        
+            $usuario = $stmt->fetch();
+
+            echo "<pre>";
             print_r($usuario);
             echo "</pre>";
         
@@ -43,6 +50,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
+    <style>
+        body::-webkit-scrollbar{
+        width: 0.75rem;
+        background-color: #dddddd;
+        }
+        body::-webkit-scrollbar-thumb{
+        border-radius: 100px;
+        background-color: #ab12ef;
+        }
+    </style>
 </head>
 <body>
     <form method="POST" action="index.php">
@@ -58,6 +76,6 @@
         </button>
 
     </form>
-    
+  
 </body>
 </html>
